@@ -1,210 +1,203 @@
-# Product Label OCR Compliance Checker
+# 🛡️ LegalGuard AI - Complete Compliance System
 
-A Streamlit web application that performs Optical Character Recognition (OCR) on product label images to verify compliance with Legal Metrology requirements.
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.128.8-009688?logo=fastapi)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react)](https://reactjs.org/)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python)](https://www.python.org/)
 
-## Features
+**AI-Powered Legal Metrology Compliance System with Smart Auditor, OCR, Mobile Scanner, and ESP32-S3 IoT Integration**
 
-✅ **Image Upload & Preview** - Upload product label images in JPG, PNG, or JPEG format
-✅ **OCR Text Extraction** - Extract text from images using Pytesseract
-✅ **Legal Metrology Compliance Check** - Validates presence of 5 mandatory keywords:
-  - MRP (Maximum Retail Price)
-  - Net Quantity
-  - Month and Year of Manufacture
-  - Customer Care Information
-  - Country of Origin
-
-✅ **Visual Compliance Report** - Color-coded alerts with expandable details
-✅ **PDF Report Export** - Download compliance results as a professional PDF
-✅ **Detailed Analysis** - View extracted text snippets and full OCR output
-
-## Prerequisites
-
-- Python 3.8 or higher
-- **Tesseract-OCR** (system-level installation required)
-- pip (Python package manager)
-
-## Installation
-
-### Step 1: Install Tesseract-OCR (Windows)
-
-1. Download the Windows installer from: https://github.com/UB-Mannheim/tesseract/wiki
-2. Download: `tesseract-ocr-w64-setup-v5.x.x.exe` (latest version)
-3. Run the installer and choose the default installation path: `C:\Program Files\Tesseract-OCR`
-4. Complete the installation
-
-### Step 2: Clone/Set up the Project
-
-```bash
-cd d:\iot-group-project
-```
-
-### Step 3: Install Python Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Step 4: Configure Tesseract Path (if needed)
-
-If Tesseract is installed in a non-standard location, you can set the path in your environment:
-
-**Windows (PowerShell):**
-```powershell
-$env:TESSDATA_PREFIX="C:\Program Files\Tesseract-OCR\tessdata"
-```
-
-**Windows (Command Prompt):**
-```cmd
-set TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata
-```
-
-Or add this to the beginning of `app.py`:
-```python
-import pytesseract
-pytesseract.pytesseract.pytesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-```
-
-## Usage
-
-### Running the Application
-
-```bash
-streamlit run app.py
-```
-
-The application will start in your default web browser at `http://localhost:8501`
-
-### Using the App
-
-1. **Upload an Image**
-   - Click on "📷 Upload Product Label Image"
-   - Select a JPG, PNG, or JPEG image of a product label
-   
-2. **Automatic Processing**
-   - The app automatically extracts text using OCR
-   - Text is checked against mandatory keywords
-   - Compliance results are displayed instantly
-
-3. **Review Results**
-   - **Overall Status**: Shows COMPLIANT (✅) or NON-COMPLIANT (❌)
-   - **Compliance Score**: Percentage of mandatory keywords found
-   - **Detailed Analysis**: Expandable sections for each keyword showing:
-     - Status (Found ✅ or Missing ❌)
-     - Text snippet where keyword was found
-     - Description of the requirement
-
-4. **View Extracted Text**
-   - Click "📄 View Full Extracted Text" to see all text extracted by OCR
-   - Useful for debugging or manual verification
-
-5. **Download Report**
-   - Click "📥 Download Compliance Report (PDF)" to save results
-   - PDF includes summary, detailed analysis, and full extracted text
-
-## Requirements
-
-See `requirements.txt` for all dependencies:
-
-- **streamlit** - Web application framework
-- **pillow** - Image processing
-- **pytesseract** - Python wrapper for Tesseract OCR
-- **opencv-python** - Computer vision library
-- **reportlab** - PDF generation
-- **python-dotenv** - Environment variable management
-
-## Project Structure
-
-```
-d:\iot-group-project\
-├── app.py                 # Main Streamlit application
-├── requirements.txt       # Python dependencies
-└── README.md             # Documentation (this file)
-```
-
-## How It Works
-
-### 1. Image Processing
-- Upload image is loaded and displayed for preview
-- Image dimensions and format are shown
-
-### 2. OCR Extraction
-- Pytesseract processes the image
-- Text is extracted using Tesseract-OCR engine
-- Handles various image qualities and angles
-
-### 3. Compliance Checking
-- Extracted text is searched for 5 mandatory keywords
-- Search is case-insensitive
-- For each keyword found, a text snippet is captured
-
-### 4. Report Generation
-- Compliance status is calculated (all keywords = compliant)
-- Three metrics displayed:
-  - **Overall Status**: COMPLIANT or NON-COMPLIANT
-  - **Keywords Found**: Count out of total (e.g., 4/5)
-  - **Compliance Score**: Percentage (e.g., 80%)
-- Expandable detail sections allow investigation of each keyword
-- PDF report can be generated with full details
-
-## Troubleshooting
-
-### Error: "No module named 'pytesseract'"
-```bash
-pip install pytesseract
-```
-
-### Error: "tesseract is not installed" or "TesseractNotFoundError"
-- Tesseract-OCR is not installed system-wide
-- Download and install from: https://github.com/UB-Mannheim/tesseract/wiki
-- Verify installation: `where tesseract` (Windows) or `which tesseract` (Mac/Linux)
-
-### Poor OCR Results
-- Ensure image is clear and well-lit
-- Use high-resolution images (minimum 300 DPI recommended)
-- Avoid blurry or tilted label images
-- Crop image to show only the label area
-
-### PDF Download Not Working
-- Check browser popup blockers
-- Ensure reportlab is installed: `pip install reportlab`
-
-## Tips for Best Results
-
-✏️ **Image Quality**
-- Use clear, well-lit photos
-- Avoid shadows and glare
-- Ensure label text is readable to human eye
-- Use minimum 300 DPI resolution when possible
-
-✏️ **Label Coverage**
-- Capture entire product label in frame
-- Include all text sections
-- Avoid partial text at image edges
-
-✏️ **Image Orientation**
-- Label should be upright and straight
-- Avoid tilted or rotated images
-- Consistent text orientation improves OCR accuracy
-
-## Performance Notes
-
-- OCR processing time varies based on image size and complexity
-- Typical processing: 2-5 seconds per image
-- PDF generation: < 1 second
-- Works offline - no cloud API calls required
-
-## License
-
-This project is provided as-is for compliance checking purposes.
-
-## Support
-
-For issues with:
-- **Tesseract Installation**: Visit https://github.com/UB-Mannheim/tesseract/wiki
-- **Streamlit Help**: Visit https://docs.streamlit.io
-- **Pytesseract Issues**: Visit https://github.com/madmaze/pytesseract
+Complete enterprise-grade system for automated compliance checking of product labels using advanced AI, computer vision, and IoT edge devices.
 
 ---
 
-**Version:** 1.0.0
-**Last Updated:** February 2026
+## 🌟 **Features**
+
+### 🖥️ **Desktop Scanner (High-Tech UI)**
+- **Interactive Image Canvas** - SVG bounding boxes with coordinate overlay
+- **Visual Compliance Tiles** - 6 status cards with green glow/red pulse animations
+- **Terminal Feed** - Live hacker-style audit logs
+- **Glassmorphism Theme** - Modern backdrop-blur design
+- **Comparison View** - Toggle between raw and AI-processed images
+
+### 📱 **Mobile Web Scanner**
+- **Live Camera Feed** - Real-time webcam integration
+- **Scanner Overlay** - Animated alignment guides
+- **Auto-Capture** - 3-second countdown on image stability
+- **Touch-Optimized** - Fullscreen mobile-responsive controls
+
+### 🤖 **ESP32-S3 IoT Edge Scanner**
+- **Factory Automation** - Assembly line integration
+- **IR Sensor Detection** - Auto-triggers on product arrival
+- **LED Status** - Green (pass), Red (fail), Yellow (processing)
+- **Conveyor Control** - Relay stops belt for non-compliant products
+
+### 🧠 **Smart AI Auditor**
+- **Explainable AI** - Bounding box coordinates for every field
+- **Fuzzy Matching** - Detects keyword variations (85% similarity)
+- **PII Masking** - Auto-blurs phone numbers, emails, addresses
+- **Forgery Detection** - ELA tampering detection
+
+---
+
+## 🚀 **Quick Start**
+
+### **Prerequisites**
+- Python 3.11+
+- Node.js 18+
+- Tesseract OCR
+
+### **Installation**
+
+```bash
+# Clone repository
+git clone https://github.com/VISHAL-1272007/legalguard-ai.git
+cd legalguard-ai
+
+# Backend setup
+cd backend
+python -m venv .venv
+.venv\Scripts\activate  # Windows
+pip install -r requirements.txt
+
+# Copy environment template
+cp .env.example .env
+
+# Run backend
+uvicorn main:app --reload
+
+# Frontend setup (new terminal)
+cd frontend
+npm install
+npm run dev
+```
+
+**Access:**
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/docs
+- Frontend: http://localhost:3000
+
+---
+
+## 📱 **3 Scanning Modes**
+
+| Mode | Device | Input | Use Case |
+|------|--------|-------|----------|
+| **Desktop** | PC/Laptop | File upload | Office analysis |
+| **Mobile** | Smartphone | Live camera | Field inspections |
+| **IoT** | ESP32-S3 | Auto-capture | Factory automation |
+
+---
+
+## 🗂️ **Project Structure**
+
+```
+legalguard-ai/
+├── backend/                     # FastAPI Backend
+│   ├── main.py                 # API endpoints
+│   ├── smart_auditor.py        # AI features
+│   ├── requirements.txt        # Dependencies
+│   ├── Dockerfile              # Container config
+│   └── .env.example            # Environment template
+├── frontend/                    # React Frontend
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── ScannerAI.jsx  # Desktop scanner
+│   │   │   └── MobileScanner.jsx # Mobile scanner
+│   │   └── App.jsx            # Device routing
+│   └── package.json
+├── docs/                        # Documentation
+│   ├── DEPLOYMENT_GUIDE.md
+│   ├── SMART_AI_AUDITOR_GUIDE.md
+│   ├── MOBILE_SCANNER_GUIDE.md
+│   └── ESP32_IOT_GUIDE.md
+└── render.yaml                  # Render deployment
+```
+
+---
+
+## 🎨 **Smart AI Features**
+
+### **Explainable AI**
+Returns bounding boxes and cropped images for every detected field.
+
+### **Fuzzy Matching**
+Detects typos and OCR errors (e.g., "Best Bfore" matches "Best Before" at 88%).
+
+### **PII Masking**
+Auto-blurs phone numbers, emails, and addresses in images.
+
+### **Forgery Detection**
+ELA (Error Level Analysis) detects digitally edited labels.
+
+---
+
+## 🌐 **Deployment**
+
+### **Render (One-Click)**
+
+1. Push to GitHub
+2. Go to [Render](https://render.com)
+3. Click "New" → "Blueprint"
+4. Select this repository
+5. Click "Apply"
+
+**Full Guide:** [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+
+### **Docker**
+
+```bash
+cd backend
+docker build -t legalguard-ai .
+docker run -p 8000:8000 legalguard-ai
+```
+
+---
+
+## 📊 **Tech Stack**
+
+**Backend:** FastAPI, Tesseract OCR, OpenCV, Scikit-Image, TheFuzz, SQLAlchemy, JWT
+
+**Frontend:** React, Vite, Framer Motion, TailwindCSS, React Webcam
+
+**IoT:** ESP32-S3, Arduino, OV2640/OV5640 Camera
+
+---
+
+## 📚 **Documentation**
+
+| Document | Description |
+|----------|-------------|
+| [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) | Complete deployment instructions |
+| [SMART_AI_AUDITOR_GUIDE.md](SMART_AI_AUDITOR_GUIDE.md) | AI features deep dive |
+| [MOBILE_SCANNER_GUIDE.md](MOBILE_SCANNER_GUIDE.md) | Mobile scanner details |
+| [ESP32_IOT_GUIDE.md](ESP32_IOT_GUIDE.md) | IoT hardware guide |
+
+---
+
+## 🔐 **Security**
+
+- ✅ JWT Authentication
+- ✅ Environment variables protected (`.env` gitignored)
+- ✅ CORS protection
+- ✅ PII masking
+- ✅ HTTPS in production
+
+**Never commit `.env` file!** Use `.env.example` as template.
+
+---
+
+## 👨‍💻 **Author**
+
+**Vishal**
+- GitHub: [@VISHAL-1272007](https://github.com/VISHAL-1272007)
+
+---
+
+## 📧 **Support**
+
+Questions or issues? Open an [Issue](https://github.com/VISHAL-1272007/legalguard-ai/issues)
+
+---
+
+**Made with ❤️ for Legal Metrology Compliance**
+
