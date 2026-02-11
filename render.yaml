@@ -1,0 +1,52 @@
+# ============================================
+# Render Blueprint Configuration
+# Deploy with: "New" → "Blueprint" → Connect repo
+# ============================================
+
+services:
+  # Backend API Service
+  - type: web
+    name: legalguard-ai-backend
+    env: python
+    region: oregon  # or singapore for Asia
+    plan: starter  # Free tier, upgrade to standard for production
+    branch: main
+    rootDir: backend
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --workers 2
+    envVars:
+      # Environment variables (set in Render dashboard)
+      - key: SECRET_KEY
+        generateValue: true  # Render auto-generates secure key
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+      - key: DATABASE_URL
+        fromDatabase:
+          name: legalguard-postgres
+          property: connectionString
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: False
+      - key: TESSDATA_PREFIX
+        value: /usr/share/tesseract-ocr/4.00/tessdata
+    healthCheckPath: /api/v1/stats
+    autoDeploy: true
+
+databases:
+  # PostgreSQL Database
+  - name: legalguard-postgres
+    plan: starter  # Free tier (90 days), upgrade for persistence
+    databaseName: legalguard_db
+    user: legalguard_admin
+    region: oregon
+    ipAllowList: []  # Empty = allow all (configure for security)
+
+# Note: After deployment, manually create .env values in Render dashboard:
+# 1. Go to Dashboard → Service → Environment
+# 2. Add any additional custom variables
+# 3. Restart service for changes to take effect
