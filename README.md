@@ -50,8 +50,8 @@ Complete enterprise-grade system for automated compliance checking of product la
 
 ```bash
 # Clone repository
-git clone https://github.com/VISHAL-1272007/legalguard-ai.git
-cd legalguard-ai
+git clone https://github.com/VISHAL-1272007/LehaulGuardAI.git
+cd LehaulGuardAI
 
 # Backend setup
 cd backend
