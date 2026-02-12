@@ -218,6 +218,7 @@ app.add_middleware(
         "https://lehaulguardai-1.onrender.com",
         "https://legalguard-ai-frontend.onrender.com",
         "https://e-commerce-scan.onrender.com",
+        "https://e-commerce-iot.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
