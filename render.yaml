@@ -37,6 +37,25 @@ services:
     healthCheckPath: /api/v1/stats
     autoDeploy: true
 
+  # Frontend Static Site
+  - type: web
+    name: legalguard-ai-frontend
+    env: static
+    region: oregon
+    plan: starter
+    branch: main
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://lehaulguardai-1.onrender.com/api/v1
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    autoDeploy: true
+
 databases:
   # PostgreSQL Database
   - name: legalguard-postgres
