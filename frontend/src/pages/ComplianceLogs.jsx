@@ -199,9 +199,9 @@ export default function ComplianceLogs() {
                       {log.confidence_score.toFixed(1)}%
                     </td>
                     <td className="py-4 px-6">
-                      {log.missing_keywords?.length > 0 ? (
+                      {log.missing_keywords && (Array.isArray(log.missing_keywords) ? log.missing_keywords.length > 0 : log.missing_keywords) ? (
                         <span className="text-xs text-red-500">
-                          {log.missing_keywords.join(', ')}
+                          {Array.isArray(log.missing_keywords) ? log.missing_keywords.join(', ') : log.missing_keywords}
                         </span>
                       ) : (
                         <span className="text-xs text-green-500">None</span>
