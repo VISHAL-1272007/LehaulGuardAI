@@ -507,6 +507,32 @@ def root():
     }
 
 
+@app.get("/api/v1")
+def api_root():
+    return {
+        "message": "Legal Metrology AI API - V1",
+        "version": "1.0.0",
+        "status": "healthy",
+        "endpoints": {
+            "auth": "/api/v1/auth/*",
+            "scan": "/api/v1/scan",
+            "smart-scan": "/api/v1/smart-scan",
+            "batch-scan": "/api/v1/batch-scan",
+            "stats": "/api/v1/stats",
+            "audit-logs": "/api/v1/audit-logs"
+        }
+    }
+
+
+@app.get("/api/v1/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "service": "LegalGuard AI",
+        "version": "1.0.0"
+    }
+
+
 @app.post("/api/v1/auth/register", response_model=LoginResponse)
 def register(user: UserCreate, db: Session = Depends(get_db)):
     """Register a new user"""
