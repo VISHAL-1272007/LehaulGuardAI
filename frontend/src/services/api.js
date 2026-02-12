@@ -9,8 +9,8 @@ const API_BASE_URL = (() => {
   
   // 2. Check production environment
   if (import.meta.env.MODE === 'production') {
-    // Vercel production - should have env var set
-    return import.meta.env.VITE_API_URL || 'https://your-backend.onrender.com/api/v1';
+    // Vercel production - use actual backend URL
+    return 'https://lehaulguardai-1.onrender.com/api/v1';
   }
   
   // 3. Local development
