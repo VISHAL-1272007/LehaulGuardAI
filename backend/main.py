@@ -217,6 +217,7 @@ app.add_middleware(
         "https://vishal-eight-nu.vercel.app",
         "https://lehaulguardai-1.onrender.com",
         "https://legalguard-ai-frontend.onrender.com",
+        "https://e-commerce-scan.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
