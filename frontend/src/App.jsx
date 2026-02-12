@@ -33,12 +33,8 @@ function ScannerRouter() {
     return <MobileScanner />;
   }
 
-  // Desktop gets the layout with ScannerAI
-  return (
-    <Layout>
-      <ScannerAI />
-    </Layout>
-  );
+  // Desktop gets ScannerAI (Layout already provided by parent route)
+  return <ScannerAI />;
 }
 
 function ProtectedRoute({ children }) {
