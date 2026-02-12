@@ -1,4 +1,4 @@
 [[redirects]]
   source = "/*"
   destination = "/index.html"
-  type = "rewrite"
+  status = 200
